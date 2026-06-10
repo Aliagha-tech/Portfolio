@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aliagha Allahverdiyev — Frontend Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=DM+Mono:wght@300;400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0c0c0e;
+    --surface: #13131a;
+    --surface2: #1a1a24;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --text: #f0ede8;
+    --muted: #7a7880;
+    --accent: #b8f0c8;
+    --accent2: #e8d5ff;
+    --accent3: #f5c07a;
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-body: 'Outfit', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-weight: 300;
+    line-height: 1.7;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Nav */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 3rem;
+    background: rgba(12,12,14,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--text);
+    letter-spacing: 0.01em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 8rem 3rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -30%;
+    right: -20%;
+    width: 60vw;
+    height: 60vw;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(184,240,200,0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -10%;
+    left: -10%;
+    width: 40vw;
+    height: 40vw;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(232,213,255,0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .hero-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .hero-label::before {
+    content: '';
+    display: block;
+    width: 2rem;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .hero-name {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 6vw, 5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--accent2);
+  }
+
+  .hero-role {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-bottom: 2rem;
+    letter-spacing: 0.05em;
+  }
+
+  .hero-desc {
+    font-size: 1.05rem;
+    color: rgba(240,237,232,0.7);
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+    max-width: 480px;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.75rem;
+    border-radius: 2px;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #0a1f0e;
+  }
+
+  .btn-primary:hover {
+    background: #9de8b0;
+    transform: translateY(-1px);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border2);
+  }
+
+  .btn-ghost:hover {
+    color: var(--text);
+    border-color: rgba(255,255,255,0.25);
+  }
+
+  /* Hero visual */
+  .hero-visual {
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+
+  .profile-frame {
+    position: relative;
+    width: 320px;
+    height: 380px;
+  }
+
+  .profile-frame::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border: 1px solid var(--border2);
+    border-radius: 2px;
+    z-index: 1;
+  }
+
+  .profile-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(20%);
+  }
+
+  .profile-placeholder {
+    width: 100%;
+    height: 100%;
+    background: var(--surface2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    font-family: var(--font-display);
+    font-size: 4rem;
+    font-style: italic;
+    letter-spacing: -0.02em;
+  }
+
+  .profile-tag {
+    position: absolute;
+    bottom: -1rem;
+    right: -1.5rem;
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    padding: 0.75rem 1rem;
+    border-radius: 2px;
+    z-index: 2;
+  }
+
+  .profile-tag-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 0.2rem;
+  }
+
+  .profile-tag-value {
+    font-size: 0.85rem;
+    color: var(--accent);
+    font-weight: 400;
+  }
+
+  /* Sections */
+  section {
+    padding: 6rem 3rem;
+    position: relative;
+  }
+
+  .section-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .section-number {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--accent2);
+  }
+
+  /* Skills */
+  .skills-section { background: var(--surface); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .skill-item {
+    padding: 2.5rem 2rem;
+    background: var(--surface);
+    position: relative;
+    transition: background 0.3s;
+    cursor: default;
+  }
+
+  .skill-item:hover { background: var(--surface2); }
+
+  .skill-icon {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--accent3);
+    letter-spacing: 0.1em;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .skill-icon::before {
+    content: '';
+    display: block;
+    width: 1.5rem;
+    height: 1px;
+    background: var(--accent3);
+  }
+
+  .skill-name {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 300;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .skill-level {
+    font-size: 0.8rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-family: var(--font-mono);
+  }
+
+  .skill-bar {
+    margin-top: 1.5rem;
+    height: 2px;
+    background: var(--border);
+    border-radius: 1px;
+    overflow: hidden;
+  }
+
+  .skill-bar-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 1px;
+    transition: width 1s ease-out;
+  }
+
+  /* About */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .about-text p {
+    font-size: 1.1rem;
+    color: rgba(240,237,232,0.7);
+    line-height: 1.9;
+    margin-bottom: 1.5rem;
+  }
+
+  .about-text p strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  
+
+  .about-stat {
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .about-stat:first-child { border-top: 1px solid var(--border); }
+
+  .about-stat-num {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--accent2);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+
+  .about-stat-label {
+    font-size: 0.8rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-family: var(--font-mono);
+  }
+
+  /* Experience */
+  .exp-section { background: var(--surface); }
+
+  .exp-list { display: flex; flex-direction: column; }
+
+  .exp-item {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 2rem;
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  .exp-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    background: var(--accent);
+    transition: width 0.3s;
+  }
+
+  .exp-item:hover::before { width: 2px; }
+
+  .exp-period {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    padding-top: 0.3rem;
+  }
+
+  .exp-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.5rem;
+  }
+
+  .exp-role {
+    font-size: 0.85rem;
+    color: var(--accent3);
+    font-family: var(--font-mono);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+  }
+
+  .exp-desc {
+    font-size: 0.95rem;
+    color: rgba(240,237,232,0.6);
+    line-height: 1.7;
+  }
+
+  /* Contact */
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .contact-text {
+    font-size: 1.1rem;
+    color: rgba(240,237,232,0.6);
+    line-height: 1.8;
+    margin-bottom: 2rem;
+  }
+
+  .socials-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    list-style: none;
+  }
+
+  .social-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+    color: var(--text);
+    transition: color 0.2s;
+    group: true;
+  }
+
+  .social-link:first-child { border-top: 1px solid var(--border); }
+
+  .social-link:hover { color: var(--accent); }
+
+  .social-link-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .social-link-icon {
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--border2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2px;
+    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    color: var(--muted);
+    flex-shrink: 0;
+    transition: all 0.2s;
+  }
+
+  .social-link:hover .social-link-icon {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .social-link-name {
+    font-weight: 400;
+    font-size: 0.95rem;
+  }
+
+  .social-link-arrow {
+    font-size: 1rem;
+    color: var(--muted);
+    transition: transform 0.2s;
+  }
+
+  .social-link:hover .social-link-arrow {
+    transform: translate(3px, -3px);
+    color: var(--accent);
+  }
+
+  .contact-email-block {
+    padding: 2rem;
+    border: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  .contact-email-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .contact-email-addr {
+    font-size: 1rem;
+    color: var(--accent2);
+    word-break: break-all;
+    font-family: var(--font-mono);
+    letter-spacing: 0.02em;
+    margin-bottom: 1.5rem;
+    display: block;
+  }
+
+  /* Footer */
+  footer {
+    padding: 2rem 3rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-copy {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  .footer-built {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .anim { opacity: 0; animation: fadeUp 0.7s ease forwards; }
+  .anim-1 { animation-delay: 0.1s; }
+  .anim-2 { animation-delay: 0.25s; }
+  .anim-3 { animation-delay: 0.4s; }
+  .anim-4 { animation-delay: 0.55s; }
+
+  /* Separator */
+  .divider { height: 1px; background: var(--border); }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    nav { padding: 1.25rem 1.5rem; }
+    .nav-links { gap: 1.25rem; }
+    .hero { padding: 7rem 1.5rem 3rem; }
+    .hero-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .hero-visual { order: -1; }
+    .profile-frame { width: 220px; height: 260px; }
+    section { padding: 4rem 1.5rem; }
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo">Aliagha A.</span>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-label anim anim-1">Available for opportunities</div>
+      <h1 class="hero-name anim anim-2">Aliagha<br><em>Allahverdiyev</em></h1>
+      <p class="hero-role anim anim-2">— Frontend Developer</p>
+      <p class="hero-desc anim anim-3">
+        Crafting responsive, thoughtful web experiences. One year in — and genuinely passionate about the craft of the web.
+      </p>
+      <div class="hero-cta anim anim-4">
+        <a href="#contact" class="btn btn-primary">Get in touch →</a>
+        <a href="#skills" class="btn btn-ghost">View skills</a>
+      </div>
+    </div>
+    <div class="hero-visual anim anim-3">
+      <div class="profile-frame">
+        <img src="profile.jpeg" alt="Aliagha Allahverdiyev" onerror="this.parentNode.innerHTML='<div class=\'profile-placeholder\'>AA</div>'">
+        <div class="profile-tag">
+          <div class="profile-tag-label">Based in</div>
+          <div class="profile-tag-value">Azerbaijan</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- Skills -->
+<section class="skills-section" id="skills">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <h2 class="section-title">Tech <em>stack</em></h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-item">
+        <div class="skill-icon">HTML5</div>
+        <div class="skill-name">HTML</div>
+        <div class="skill-level">Advanced</div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:90%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-icon">CSS3</div>
+        <div class="skill-name">CSS</div>
+        <div class="skill-level">Advanced</div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:88%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-icon">JS</div>
+        <div class="skill-name">JavaScript</div>
+        <div class="skill-level">Intermediate</div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:65%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-icon">JSX</div>
+        <div class="skill-name">React</div>
+        <div class="skill-level">Intermediate</div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:60%"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- About -->
+<section id="about">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <h2 class="section-title">About <em>me</em></h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          Hi — I'm <strong>Aliagha</strong>, a frontend developer from Azerbaijan. I've spent the past year learning how to build real things for the web and haven't looked back since.
+        </p>
+        <p>
+          I work primarily with <strong>HTML, CSS, JavaScript, and React</strong> — focusing on clean structure, thoughtful design, and experiences that feel right to use.
+        </p>
+        <p>
+          Before development, I had stints as a supermarket sales associate and a subtitle translator. Both taught me how to communicate clearly and work under pressure — skills that carry over more than you'd think.
+        </p>
+        <p>
+          I'm actively looking for opportunities where I can contribute, grow, and eventually do some of my best work. Let's build something together.
+        </p>
+      </div>
+      <div class="about-aside">
+        <div class="about-stat">
+          <div class="about-stat-num">1+</div>
+          <div class="about-stat-label">Year of frontend development</div>
+        </div>
+        <div class="about-stat">
+          <div class="about-stat-num">4</div>
+          <div class="about-stat-label">Core technologies</div>
+        </div>
+        <div class="about-stat">
+          <div class="about-stat-num">∞</div>
+          <div class="about-stat-label">Things still to learn</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- Experience -->
+<section class="exp-section" id="experience">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <h2 class="section-title">Experience</h2>
+    </div>
+    <div class="exp-list">
+      <div class="exp-item">
+        <div class="exp-period">2025 — present</div>
+        <div>
+          <div class="exp-title">Subtitle Translator</div>
+          <div class="exp-role">Freelance / Remote</div>
+          <div class="exp-desc">Translating and adapting subtitles for video content — sharpening my attention to nuance, timing, and precise language.</div>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-period">2021 — 2023</div>
+        <div>
+          <div class="exp-title">Sales Associate</div>
+          <div class="exp-role">Supermarket</div>
+          <div class="exp-desc">Customer-facing role that built communication, reliability, and composure under pressure — underrated skills for a developer.</div>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-period">2024 — now</div>
+        <div>
+          <div class="exp-title">Self-directed Learning</div>
+          <div class="exp-role">Frontend Development</div>
+          <div class="exp-desc">Building real projects with HTML, CSS, JavaScript, and React. Focused on understanding fundamentals deeply before moving on.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- Contact -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <h2 class="section-title">Get in <em>touch</em></h2>
+    </div>
+    <div class="contact-inner">
+      <div>
+        <p class="contact-text">
+          Whether you have a project in mind, a role to fill, or just want to say hello — I'm always open to a good conversation.
+        </p>
+        <div class="contact-email-block">
+          <div class="contact-email-label">Email address</div>
+          <span class="contact-email-addr">allahverdiyevaliagha@gmail.com</span>
+          <a href="mailto:allahverdiyevaliagha@gmail.com" class="btn btn-primary" style="display:inline-flex;">Send email →</a>
+        </div>
+      </div>
+      <div>
+        <ul class="socials-list">
+          <li>
+            <a href="https://github.com/Aliagha-tech" target="_blank" rel="noopener" class="social-link">
+              <span class="social-link-left">
+                <span class="social-link-icon">GH</span>
+                <span class="social-link-name">GitHub</span>
+              </span>
+              <span class="social-link-arrow">↗</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.instagram.com/aaaaallahverdiyev/" target="_blank" rel="noopener" class="social-link">
+              <span class="social-link-left">
+                <span class="social-link-icon">IG</span>
+                <span class="social-link-name">Instagram</span>
+              </span>
+              <span class="social-link-arrow">↗</span>
+            </a>
+          </li>
+          <li>
+            <a href="mailto:allahverdiyevaliagha@gmail.com" class="social-link">
+              <span class="social-link-left">
+                <span class="social-link-icon">@</span>
+                <span class="social-link-name">Email</span>
+              </span>
+              <span class="social-link-arrow">↗</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-copy">© 2025 Aliagha Allahverdiyev</span>
+  <span class="footer-built">Designed & built by hand</span>
+</footer>
+
+</body>
+</html>
